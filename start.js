@@ -18,10 +18,10 @@
 
 'use strict';
 
-import { listen, get } from './server/server';
+var app = require('./server/server');
 
 // start server
-var server = listen(get('port'), function () {
+var server = app.listen(app.get('port'), function () {
   if (process.env.FORGE_CLIENT_ID == null || process.env.FORGE_CLIENT_SECRET == null)
     console.log('*****************\nWARNING: Client ID & Client Secret not defined as environment variables.\n*****************');
 

@@ -19,18 +19,18 @@
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
 // token handling in session
-import token from './token';
+var token = require('./token');
 
 // web framework
-import { Router } from 'express';
-var router = Router();
+var express = require('express');
+var router = express.Router();
 
-import { AuthClientThreeLegged } from 'forge-apis';
+var forgeSDK = require('forge-apis');
 
 // forge config information, such as client ID and secret
-import { credentials, callbackURL, scopeInternal, scopePublic } from './config';
+var config = require('./config');
 
-import { randomString } from 'cryptiles';
+var cryptiles = require('cryptiles');
 
 // this end point will logoff the user by destroying the session
 // as of now there is no Forge endpoint to invalidate tokens
@@ -44,7 +44,7 @@ router.get('/user/logoff', function (req, res) {
 
 router.get('/api/forge/clientID', function (req, res) {
   res.json({
-    'ForgeClientId': credentials.client_id
+    'ForgeClientId': config.credentials.client_id
   });
 });
 
@@ -63,7 +63,7 @@ router.get('/user/token', function (req, res) {
 
 // return the forge authenticate url
 router.get('/user/authenticate', function (req, res) {
-  req.session.csrf = randomString(24);
+  req.session.csrf = cryptiles.randomString(24);
 
   console.log('using csrf: ' + req.session.csrf);
 
@@ -73,10 +73,10 @@ router.get('/user/authenticate', function (req, res) {
   var url =
     "https://developer.api.autodesk.com" +
     '/authentication/v1/authorize?response_type=code' +
-    '&client_id=' + credentials.client_id +
-    '&redirect_uri=' + callbackURL +
+    '&client_id=' + config.credentials.client_id +
+    '&redirect_uri=' + config.callbackURL +
     '&state=' + req.session.csrf +
-    '&scope=' + scopeInternal.join(" ");
+    '&scope=' + config.scopeInternal.join(" ");
   res.end(url);
 });
 
@@ -100,7 +100,7 @@ router.get('/api/forge/callback/oauth', function (req, res) {
   var tokenSession = new token(req.session);
 
   // first get a full scope token for internal use (server-side)
-  var req = new AuthClientThreeLegged(credentials.client_id, credentials.client_secret, callbackURL, scopeInternal);
+  var req = new forgeSDK.AuthClientThreeLegged(config.credentials.client_id, config.credentials.client_secret, config.callbackURL, config.scopeInternal);
   console.log(code);
   req.getToken(code)
     .then(function (internalCredentials) {
@@ -111,7 +111,7 @@ router.get('/api/forge/callback/oauth', function (req, res) {
       console.log('Internal token (full scope): ' + internalCredentials.access_token); // debug
 
       // then refresh and get a limited scope token that we can send to the client
-      var req2 = new AuthClientThreeLegged(credentials.client_id, credentials.client_secret, callbackURL, scopePublic);
+      var req2 = new forgeSDK.AuthClientThreeLegged(config.credentials.client_id, config.credentials.client_secret, config.callbackURL, config.scopePublic);
       req2.refreshToken(internalCredentials)
         .then(function (publicCredentials) {
           tokenSession.setPublicCredentials(publicCredentials);
@@ -129,4 +129,4 @@ router.get('/api/forge/callback/oauth', function (req, res) {
     });
 });
 
-export default router;
+module.exports = router;

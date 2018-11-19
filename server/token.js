@@ -18,34 +18,41 @@
 
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
-class Token {
-    constructor(session) {
-        this._session = session;
-    }
-    getInternalOAuth() {
-        return this._session.internalOAuth;
-    }
-    setInternalOAuth(internalOAuth) {
-        this._session.internalOAuth = internalOAuth;
-    }
-    getPublicOAuth() {
-        return this._session.publicOAuth;
-    }
-    setPublicOAuth(publicOAuth) {
-        this._session.publicOAuth = publicOAuth;
-    }
-    getInternalCredentials() {
-        return this._session.internalCredentials;
-    }
-    setInternalCredentials(internalCredentials) {
-        this._session.internalCredentials = internalCredentials;
-    }
-    getPublicCredentials() {
-        return this._session.publicCredentials;
-    }
-    setPublicCredentials(publicCredentials) {
-        this._session.publicCredentials = publicCredentials;
-    }
+function Token(session) {
+    this._session = session;
+
 }
 
-export default Token;
+Token.prototype.getInternalOAuth = function () {
+    return this._session.internalOAuth;
+};
+
+Token.prototype.setInternalOAuth = function (internalOAuth) {
+    this._session.internalOAuth = internalOAuth;
+};
+
+Token.prototype.getPublicOAuth = function () {
+    return this._session.publicOAuth;
+};
+
+Token.prototype.setPublicOAuth = function (publicOAuth) {
+    this._session.publicOAuth = publicOAuth;
+};
+
+Token.prototype.getInternalCredentials = function () {
+    return this._session.internalCredentials;
+};
+
+Token.prototype.setInternalCredentials = function (internalCredentials) {
+    this._session.internalCredentials = internalCredentials;
+};
+
+Token.prototype.getPublicCredentials = function () {
+    return this._session.publicCredentials;
+};
+
+Token.prototype.setPublicCredentials = function (publicCredentials) {
+    this._session.publicCredentials = publicCredentials;
+};
+
+module.exports = Token;

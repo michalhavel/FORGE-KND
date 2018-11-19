@@ -17,10 +17,10 @@
 /////////////////////////////////////////////////////////////////////
 'use strict';
 
-import express, { static } from 'express';
-import cookieParser from 'cookie-parser';
-import cookieSession from 'cookie-session';
-import session from 'express-session';
+var express = require('express');
+var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
+var session = require('express-session');
 var app = express();
 
 // this session will be used to save the oAuth token
@@ -49,20 +49,21 @@ app.use(cookieSession({
 */
 
 // prepare server routing
-app.use('/', static(__dirname + '/..')); // redirect static calls
-app.use('/js', static(__dirname + '/../node_modules/bootstrap/dist/js')); // redirect static calls
-app.use('/js', static(__dirname + '/../node_modules/jquery/dist')); // redirect static calls
-app.use('/css', static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect static calls
-app.use('/fonts', static(__dirname + '/../node_modules/bootstrap/dist/fonts'));
-app.use('/font',static(__dirname + '/../font')) // redirect static calls
+app.use('/', express.static(__dirname + '/../www/')); // redirect static calls
+app.use('/js', express.static(__dirname + '/../node_modules/bootstrap/dist/js')); // redirect static calls
+app.use('/js', express.static(__dirname + '/../node_modules/jquery/dist')); // redirect static calls
+app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect static calls
+app.use('/fonts', express.static(__dirname + '/../node_modules/bootstrap/dist/fonts'));
+app.use('/font',express.static(__dirname + '/../font')) // redirect static calls
 app.set('port', process.env.PORT || 3030); // main port
 
 // prepare our API endpoint routing
-import oauth from './oauth';
-import dm from './data.management';
-import md from './model.derivative';
+var oauth = require('./oauth');
+var dm = require('./data.management');
+var md = require('./model.derivative');
 app.use('/', oauth); // redirect oauth API calls
 app.use('/dm/', dm); // redirect our Data Management API calls
 app.use('/md/', md); // redirect our Data Management API calls
 
-export default app;
+
+module.exports = app;

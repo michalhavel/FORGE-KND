@@ -1,19 +1,41 @@
-//Nastavení cesty pro vrácení přiděleného tokenu
-export const callbackURL
-    = process.env.FORGE_CALLBACK_URL || 'http://localhost:3030/api/forge/callback/oauth';
+/////////////////////////////////////////////////////////////////////
+// Copyright (c) Autodesk, Inc. All rights reserved
+// Written by Forge Partner Development 
+//
+// Permission to use, copy, modify, and distribute this software in
+// object code form for any purpose and without fee is hereby granted,
+// provided that the above copyright notice appears in all copies and
+// that both that copyright notice and the limited warranty and
+// restricted rights notice below appear in all supporting
+// documentation.
+//
+// AUTODESK PROVIDES THIS PROGRAM "AS IS" AND WITH ALL FAULTS.
+// AUTODESK SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTY OF
+// MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE.  AUTODESK, INC.
+// DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
+// UNINTERRUPTED OR ERROR FREE.
+/////////////////////////////////////////////////////////////////////
 
-//Nastavení přístupových údajů do Forge APP
-export const credentials
-    = {
-    client_id: process.env.FORGEClient_ID || 'ET3t9fEvOyCOJkcjbS2U1Y6PGzQOtwf1',
+'use strict'; // http://www.w3schools.com/js/js_strict.asp
+
+module.exports = {
+
+  // Autodesk Forge configuration
+
+  // this this callback URL when creating your client ID and secret
+  // callbackURL: process.env.FORGE_CALLBACK_URL || 'https://cadsforge.herokuapp.com/api/forge/callback/oauth',
+  callbackURL: process.env.FORGE_CALLBACK_URL || 'https://cadsforge.azurewebsites.net/api/forge/callback/oauth',
+  // callbackURL: process.env.FORGE_CALLBACK_URL || 'http://localhost:3030/api/forge/callback/oauth',
+
+  // set environment variables or hard-code here
+  credentials: {
+    client_id: process.env.FORGE_CLIENT_ID || 'ET3t9fEvOyCOJkcjbS2U1Y6PGzQOtwf1',
     client_secret: process.env.FORGE_CLIENT_SECRET || 'GItbIUFkjI6nlVVf'
+  },
+
+  // Required scopes for your application on server-side
+  scopeInternal: ['data:read', 'data:write', 'data:create', 'data:search',
+  'bucket:create', 'bucket:read', 'bucket:update', 'bucket:delete'],
+  // Required scope of the token sent to the client
+  scopePublic: ['viewables:read']
 };
-
-// Required scopes for your application on server-side
-export const scopeInternal
-    = ['data:read', 'data:write', 'data:create', 'data:search',
-        'bucket:create', 'bucket:read', 'bucket:update', 'bucket:delete'],
-
-// Required scope of the token sent to the client
-export const scopePublic = ['viewables:read'];
-
