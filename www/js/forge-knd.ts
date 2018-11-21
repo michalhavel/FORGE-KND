@@ -39,3 +39,5 @@ function onDocumentLoadSuccess(doc:Autodesk.Viewing.Document) {
     }
 }
 
+let test:string="neco";
+

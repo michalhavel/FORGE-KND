@@ -30,6 +30,7 @@ function onDocumentLoadSuccess(doc) {
         console.error('Document contains no viewables.');
     }
 }
+var test = "neco";
 //   declare module ForgeToken{
 //     export function getForgeToken() {
 //         jQuery.ajax({
