@@ -1,7 +1,7 @@
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
 // token handling in session
-var token = require('./token').default;
+var token = require('./token');
 
 // web framework
 var express = require('express');
