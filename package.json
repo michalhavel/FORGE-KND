@@ -29,6 +29,7 @@
     "url": "git+https://github.com/michalhavel/FORGE-KND.git"
   },
   "dependencies": {
+    "@types/jsdom": "^12.2.0",
     "awesome-typescript-loader": "*",
     "body-parser": "^1.18.3",
     "bootstrap": "*",
@@ -48,6 +49,8 @@
     "forge-oss": "^2.1.0",
     "formidable": "^1.2.1",
     "jquery": "*",
+    "jquery-ts": "^2.1.1",
+    "jsdom": "^13.0.0",
     "jstree": "^3.3.4",
     "minimatch": "^3.0.4",
     "moment": "*",

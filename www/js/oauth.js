@@ -16,7 +16,7 @@
 // UNINTERRUPTED OR ERROR FREE.
 /////////////////////////////////////////////////////////////////////
 
-function getForgeToken(callback) {
+ function getForgeToken(callback) {
   jQuery.ajax({
     url: '/user/token',
     success: function (res) {
