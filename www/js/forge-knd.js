@@ -104,7 +104,39 @@ function onLoadModelSuccess(model) {
 }
 
 //Odchycení toolbaru
+ToolbarExtension.prototype.load = function () {
+    if (this.viewer.toolbar) {
+        // Toolbar is already available, create the UI
+        this.createUI();
+    } else {
+        // Toolbar hasn't been created yet, wait until we get notification of its creation
+        this.onToolbarCreatedBinded = this.onToolbarCreated.bind(this);
+        this.viewer.addEventListener(av.TOOLBAR_CREATED_EVENT, this.onToolbarCreatedBinded);
+    }
 
+    return true;
+};
+
+ToolbarExtension.prototype.onToolbarCreated = function () {
+    this.viewer.removeEventListener(av.TOOLBAR_CREATED_EVENT, this.onToolbarCreatedBinded);
+    this.onToolbarCreatedBinded = null;
+    this.createUI();
+};
+
+ToolbarExtension.prototype.createUI = function () {
+    alert('TODO: Create Toolbar!');
+
+}
+
+ToolbarExtension.prototype.createUI = function () {
+    var viewer = this.viewer;
+
+    //Button
+    var button1 = new Autodesk.Viewing.UI.Button('front-view-btn');
+    button1.onClick = function(e){
+        viewer.setViewCube('front');
+    }
+}
 /**
  * viewer.loadModel() failure callback.
  * Invoked when there's an error fetching the SVF file.
@@ -180,7 +212,7 @@ function formatMailOrder() {
 
     pole.forEach(element => {
         index += +1;
-        out += index +". " + element + "%0A"
+        out += index + ". " + element + "%0A"
     });
     return "Tímto u Vás Objednávám náhradní součásti pro stroj/zařízení " + MyVars.fileName + ":" + "%0A" + out
 }
@@ -205,7 +237,7 @@ function createListGroup(properties) {
     for (var i = 0; i < properties.length; i++) {
         var value = "";
         value = properties[i];
-        hrefValue = '"/PDF/'+properties[i]+'.pdf"';
+        hrefValue = '"/PDF/' + properties[i] + '.pdf"';
         // <a href="#" class="list-group-item waves-light">Součást 1</a>
         //E:\GitHub\TestingForge\www\PDF\APF014-034.pdf
         result += '<a id =' + value + ' target="_blank" rel="noopener noreferrer" href=' + hrefValue + ' class="list-group-item waves-light">' + value + '</a>';
@@ -220,7 +252,7 @@ function getProperty(selection, name) {
     function callb() {
         for (var i = 0; i < selection.length; i++) {
 
-           MyVars.viewer.model.getBulkProperties([selection[i]], name, function (prop) {
+            MyVars.viewer.model.getBulkProperties([selection[i]], name, function (prop) {
                 var res = "";
                 var propertyArray = prop[0].properties;
                 for (var i = 0; i < propertyArray.length; i++) {
