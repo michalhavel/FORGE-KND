@@ -3,15 +3,6 @@ var lmvDoc;
 var viewables;
 var indexViewable;
 var documentId;
-function getForgeToken(callback) {
-    jQuery.ajax({
-        url: '/user/token',
-        success: function (res) {
-            console.log('res de token client', res);
-            callback(res.access_token, res.expires_in);
-        }
-    });
-}
 var options = {
     env: 'AutodeskProduction',
     getAccessToken: getForgeToken
@@ -31,14 +22,12 @@ function onDocumentLoadSuccess(doc) {
     }
 }
 var test = "neco";
-//   declare module ForgeToken{
-//     export function getForgeToken() {
-//         jQuery.ajax({
-//               url:'/user/token',
-//               success: function (res) {
-//                   console.log('res de token client',res);
-//                  return res.access_token
-//               }
-//           })
-//       }
-//  }
+function getForgeToken(callback) {
+    jQuery.ajax({
+        url: '/user/token',
+        success: function (res) {
+            console.log('res de token client', res);
+            callback(res.access_token, res.expires_in);
+        }
+    });
+}
