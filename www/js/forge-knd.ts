@@ -2,8 +2,8 @@
 let viewer;
 let lmvDoc;
 let viewables:Object[];
-let indexViewable;
-let documentId;
+let indexViewable:Number;
+let documentId:string;
 
 let options = {
     env: 'AutodeskProduction',
@@ -28,5 +28,17 @@ function onDocumentLoadSuccess(doc:Autodesk.Viewing.Document) {
     }
 }
 
-let test:string="neco";
 
+function getProperty(selection:Object[],name:string) {
+    for (let i = 0; i < selection.length; i++) {
+        const element = selection[i];
+       
+    }
+}
+// import './extensions/Autodesk.ADN.Viewing.Extension'
+// let myButton = new Autodesk.Viewing.UI.Button('toobar-markup')
+
+//Konec FORGE-KND.TS------------------------------------------------------------------------
+//------------------------------------------------
+//............................................
+//..............................................

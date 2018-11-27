@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "out": "./www/js/forge-knd.js",
+        "out":"./www/js/forge-knd.js",
         "watch": true
     }  
 }

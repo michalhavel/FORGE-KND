@@ -1194,7 +1194,8 @@ function loadDocument(viewer, documentId) {
                 //viewer.load(doc.getViewablePath(geometryItems[0]), null, null, null, doc.acmSessionId /*session for DM*/);
                 var options = {};
                 viewer.loadModel(path, options);
-                // addFusionButton(viewer);
+                addFusionButton(viewer);
+                addMyButton(viewer);
             }
         },
         // onError
